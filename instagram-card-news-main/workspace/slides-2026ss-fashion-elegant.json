@@ -1,0 +1,54 @@
+[
+  {
+    "slide": 1,
+    "type": "cover",
+    "headline": "2026 S/S 패션 트렌드 7",
+    "subtext": "이번 봄여름, 이렇게 입으면 감도 산다"
+  },
+  {
+    "slide": 2,
+    "type": "content",
+    "headline": "1) 파스텔의 귀환",
+    "body": "베이비 블루·피치·버터 옐로우\n한 톤만 포인트로 써도 트렌디"
+  },
+  {
+    "slide": 3,
+    "type": "content-highlight",
+    "headline": "2) 시어 레이어링",
+    "emphasis": "비침은 과하지 않게",
+    "body": "시스루 톱 + 이너 조합\n가벼운 겹침으로 무드만 살린다"
+  },
+  {
+    "slide": 4,
+    "type": "content-list",
+    "headline": "3) 보헤미안 리바이벌",
+    "item1": "프린지 디테일",
+    "item2": "핸드크래프트 자수",
+    "item3": "플로우 실루엣",
+    "item4": "스웨이드 포인트",
+    "item5": "빈티지 액세서리"
+  },
+  {
+    "slide": 5,
+    "type": "content-split",
+    "headline": "4) 스포츠 믹스",
+    "left_title": "캐주얼",
+    "left_body": "트랙재킷\n테크 팬츠",
+    "right_title": "테일러링",
+    "right_body": "재킷·셔츠와 믹스\n도시형 밸런스",
+    "subtext": "핵심은 기능성 + 정제된 핏"
+  },
+  {
+    "slide": 6,
+    "type": "content-stat",
+    "headline": "5) 오래 입는 소비",
+    "emphasis": "지속가능성",
+    "body": "재생소재·리페어·리세일 확산\n많이 사기보다 잘 사서 오래 입기"
+  },
+  {
+    "slide": 7,
+    "type": "cta",
+    "headline": "2026 S/S 공식\n컬러 + 레이어링 + 실용성",
+    "cta_text": "저장하고 쇼핑 전에 체크하기"
+  }
+]
