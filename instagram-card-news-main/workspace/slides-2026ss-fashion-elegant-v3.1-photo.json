@@ -1,0 +1,68 @@
+[
+  {
+    "slide": 1,
+    "type": "cover",
+    "headline": "2026 S/S,\n무드가 옷의 완성도를 가른다",
+    "subtext": "이번엔 '읽는 카드뉴스'가 아니라 '보이는 카드뉴스'"
+  },
+  {
+    "slide": 2,
+    "type": "content-fullimage",
+    "headline": "1) 파스텔 포인트 룩",
+    "badge_text": "TREND LOOK",
+    "body": "베이비 블루·피치·버터 옐로우\n전신보다 한 포인트가 고급",
+    "badge2_text": "STYLING TIP",
+    "body2": "상의/가방/슈즈 중 한 군데만 컬러 강조",
+    "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1080&q=80"
+  },
+  {
+    "slide": 3,
+    "type": "content-fullimage",
+    "headline": "2) 시어 레이어링",
+    "badge_text": "TREND LOOK",
+    "body": "비침은 줄이고 무드는 올리고\n질감 대비가 핵심",
+    "badge2_text": "STYLING TIP",
+    "body2": "시스루 톱 + 미니멀 이너 + 스트레이트 핏",
+    "image_url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1080&q=80"
+  },
+  {
+    "slide": 4,
+    "type": "content-fullimage",
+    "headline": "3) 보헤미안 리바이벌",
+    "badge_text": "TREND LOOK",
+    "body": "프린지·자수·빈티지 액세서리\n디테일 1~2개만 써도 충분",
+    "badge2_text": "STYLING TIP",
+    "body2": "루즈한 원피스 + 웨스턴 부츠 조합",
+    "image_url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1080&q=80"
+  },
+  {
+    "slide": 5,
+    "type": "content-fullimage",
+    "headline": "4) 스포츠 믹스, 이 조합이 정답",
+    "badge_text": "TREND LOOK",
+    "body": "테일러드 재킷 + 테크 팬츠\n기능성 + 정제된 핏",
+    "badge2_text": "STYLING TIP",
+    "body2": "운동복 셋업 그대로는 피하고, 재킷으로 균형",
+    "image_url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1080&q=80"
+  },
+  {
+    "slide": 6,
+    "type": "content-fullimage",
+    "headline": "5) 2026 핵심 키워드",
+    "badge_text": "SUSTAINABLE",
+    "body": "재생소재·리페어·리세일이 기본\n많이 사는 시대에서 오래 입는 시대로",
+    "badge2_text": "STYLING TIP",
+    "body2": "유행템 1개 + 클래식 2개 비율로 구매",
+    "image_url": "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1080&q=80"
+  },
+  {
+    "slide": 7,
+    "type": "content-fullimage",
+    "headline": "2026 S/S 공식",
+    "badge_text": "FINAL CHECK",
+    "body": "무드 + 핏 + 실용성\n세 가지가 맞으면 실패 없다",
+    "badge2_text": "CTA",
+    "body2": "저장하고 쇼핑 직전에 30초 체크",
+    "image_url": "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=1080&q=80"
+  }
+]
