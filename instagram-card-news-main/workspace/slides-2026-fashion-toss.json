@@ -1,0 +1,55 @@
+[
+  {
+    "slide": 1,
+    "type": "cover",
+    "headline": "2026 패션 트렌드<br><span class='bar-highlight'>7가지</span>",
+    "subtext": "지금 저장하면 쇼핑 실패 줄어든다"
+  },
+  {
+    "slide": 2,
+    "type": "content",
+    "headline": "1) 로고보다 <span class='accent'>소재감</span>",
+    "body": "캐시미어·스웨이드·워시드 레더\n같은 컬러여도 질감 차이로 고급스럽게"
+  },
+  {
+    "slide": 3,
+    "type": "content-split",
+    "headline": "2) 출근룩 공식이 바뀐다",
+    "left_title": "이전",
+    "left_body": "정장은 정장대로\n캐주얼은 따로",
+    "right_title": "2026",
+    "right_body": "블레이저 + 데님\n셔츠 + 스포츠 아우터"
+  },
+  {
+    "slide": 4,
+    "type": "content-list",
+    "headline": "3) 테크웨어는 이제 기본",
+    "item1": "가볍고 방수되는 아우터",
+    "item2": "포켓 많은 유틸리티 팬츠",
+    "item3": "비 오고 더운 날에도 버티는 소재",
+    "item4": "운동복 느낌보다 도시형 실루엣"
+  },
+  {
+    "slide": 5,
+    "type": "content-highlight",
+    "headline": "4) 핏은 더 <span class='accent'>자유롭게</span>",
+    "emphasis": "젠더리스 실루엣 확장",
+    "body": "오버사이즈 셔츠, 박시 재킷, 롱코트\n성별 코드보다 체형·무드 중심"
+  },
+  {
+    "slide": 6,
+    "type": "content-stat",
+    "headline": "5) 오래 입는 옷이 이긴다",
+    "emphasis": "지속가능성 2.0",
+    "body": "재생소재·리세일·리페어 문화 확산\n'많이 사기'보다 '잘 사서 오래 입기'"
+  },
+  {
+    "slide": 7,
+    "type": "cta",
+    "headline": "2026 스타일 공식\n좋은 소재 + 실용성 + 내 무드",
+    "cta_text": "저장하고 다음 쇼핑 때 체크하기",
+    "tag1": "#2026패션",
+    "tag2": "#패션트렌드",
+    "tag3": "#토스스타일"
+  }
+]
