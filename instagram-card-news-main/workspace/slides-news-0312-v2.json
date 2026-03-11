@@ -1,0 +1,107 @@
+[
+  {
+    "slide": 1,
+    "type": "cover",
+    "headline": "3월 12일\n⚡ 오늘의 뉴스",
+    "subtext": "출근길에 딱! 1분 컷",
+    "headline_label": "MORNING HEADLINES"
+  },
+  {
+    "slide": 2,
+    "type": "content-highlight",
+    "headline": "🔥 HOT ISSUE",
+    "emphasis": "AI 결제",
+    "body": "AI가 알아서 사고\n알아서 결제한다?\n내 지갑, AI가 관리한다\n에이전트 카드 시대 개막!",
+    "subtext": "결제의 미래, 벌써 왔다"
+  },
+  {
+    "slide": 3,
+    "type": "content-badge",
+    "badge_text": "유통",
+    "headline": "편의점 규제 풀린다\n24시간 영업 길 열려?",
+    "body": "SSM, 심야제한서 제외\n의무휴업도 손질한다\n소비자는 환영\n소상공인은 우려",
+    "subtext": "NEWS 01"
+  },
+  {
+    "slide": 4,
+    "type": "content-badge",
+    "badge_text": "커머스",
+    "headline": "유튜브 보다가\n바로 산다?",
+    "body": "알리익스프레스-유튜브 손잡아\n쇼츠 → 구매 한큐에\nC커머스 지형 확대\n새로운 쇼핑 경험 탄생",
+    "subtext": "NEWS 02"
+  },
+  {
+    "slide": 5,
+    "type": "content-badge",
+    "badge_text": "플랫폼",
+    "headline": "네이트온도\n선물하기 시작!",
+    "body": "메신저가 곧 쇼핑몰?\n소통·업무·커머스 올인원\n카톡 대항마 도전\n국산 메신저의 진화",
+    "subtext": "NEWS 03"
+  },
+  {
+    "slide": 6,
+    "type": "content-badge",
+    "badge_text": "패션",
+    "headline": "올봄 패션?\n컬러 폭발🔥",
+    "body": "무채색 시대 끝났다\n유채색 검색량 급증\n파스텔→비비드까지\n지그재그가 포착한 트렌드",
+    "subtext": "NEWS 04"
+  },
+  {
+    "slide": 7,
+    "type": "content-badge",
+    "badge_text": "핀테크",
+    "headline": "AI가 내 돈\n알아서 쓴다?",
+    "body": "에이전트 카드 등장!\n습관 학습→맞춤 쇼핑\nAI가 대신 결제\n\"내 지갑이 똑똑해졌다\"",
+    "subtext": "NEWS 05"
+  },
+  {
+    "slide": 8,
+    "type": "content-badge",
+    "badge_text": "라이프",
+    "headline": "\"또 가니?\"\n한국女 해외여행 1위",
+    "body": "전 세계 여행객 중\n한국 여성이 가장 많이?\n최애 여행지는 일본\n여행이 일상이 된 시대",
+    "subtext": "NEWS 06"
+  },
+  {
+    "slide": 9,
+    "type": "content-badge",
+    "badge_text": "AI",
+    "headline": "드래곤볼 만든 회사도\nAI 품었다",
+    "body": "보수적 일본 만화계까지\nAI 도입 시작\n슬램덩크 제작사도\n창작의 패러다임 전환",
+    "subtext": "NEWS 07"
+  },
+  {
+    "slide": 10,
+    "type": "content-badge",
+    "badge_text": "에듀",
+    "headline": "고교생 2명 중 1명\n\"AI 쌤과 공부해요\"",
+    "body": "AI 튜터 보편화 시대\n개인별 맞춤 학습\n선생님 대체 아니다\n새로운 교육 파트너",
+    "subtext": "NEWS 08"
+  },
+  {
+    "slide": 11,
+    "type": "content-badge",
+    "badge_text": "워라밸",
+    "headline": "AI 덕분에 빨라졌다?\n\"일이 더 힘들어요\"",
+    "body": "직장인 31% 재작업 증가\n빨라진 만큼 더 시켜?\nAI 효율성의 역설\n\"도구가 늘어도 일은 늘어\"",
+    "subtext": "NEWS 09"
+  },
+  {
+    "slide": 12,
+    "type": "content-badge",
+    "badge_text": "테크",
+    "headline": "메타, AI 전용 SNS\n'몰트북' 인수!",
+    "body": "AI 인재 확보 전쟁 가속\nAI끼리 소통하는 SNS?\n메타의 야심찬 행보\nAI 생태계 확장 시동",
+    "subtext": "NEWS 10"
+  },
+  {
+    "slide": 13,
+    "type": "cta",
+    "headline": "내일 아침 7시\n또 만나요!",
+    "cta_text": "팔로우하고 매일 받기",
+    "subtext": "출근길 1분 뉴스",
+    "tag1": "#출근길뉴스",
+    "tag2": "#1분요약",
+    "tag3": "#오늘의헤드라인"
+  }
+]
