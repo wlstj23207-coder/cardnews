@@ -8,6 +8,19 @@ const path = require('path');
 const configPath = path.join(__dirname, '..', 'config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
+// 이미지 소싱 모듈 (지연 로드)
+let imageSourcing = null;
+function getImageSourcing() {
+  if (!imageSourcing) {
+    try {
+      imageSourcing = require('./image-sourcing');
+    } catch (e) {
+      console.warn('이미지 소싱 모듈을 로드할 수 없습니다:', e.message);
+    }
+  }
+  return imageSourcing;
+}
+
 /**
  * Replace all template placeholders in HTML content.
  * @param {string} html - Raw HTML template string
@@ -32,6 +45,8 @@ function applyPlaceholders(html, slide, opts, index, total) {
     '{{account_name}}': opts.account || config.defaults.account_name,
     // v2 placeholders
     '{{image_url}}': slide.image_url || '',
+    '{{image_credit}}': slide.image_credit || '',
+    '{{image_color}}': slide.image_color || '#3B82F6',
     '{{badge_text}}': slide.badge_text || '',
     '{{step1}}': (slide.step1 || '').replace(/\n/g, '<br>'),
     '{{step2}}': (slide.step2 || '').replace(/\n/g, '<br>'),
@@ -91,6 +106,8 @@ function applyPlaceholders(html, slide, opts, index, total) {
  * @param {string} opts.outputDir - Output directory path
  * @param {string} opts.accent - Accent color hex
  * @param {string} opts.account - Account name string
+ * @param {boolean} opts.autoImage - 자동 이미지 소싱 활성화
+ * @param {string} opts.imageKeyword - 이미지 검색 기본 키워드
  */
 async function render(opts = {}) {
   const slidesPath = opts.slidesPath || path.join(process.cwd(), config.workspace_dir, 'slides.json');
@@ -98,12 +115,33 @@ async function render(opts = {}) {
   const outputDir = opts.outputDir || path.join(process.cwd(), config.output_dir);
   const accent = opts.accent || config.defaults.accent_color;
   const account = opts.account || config.defaults.account_name;
+  const autoImage = opts.autoImage !== false && config.image_sourcing?.enabled !== false;
+  const imageKeyword = opts.imageKeyword || '';
 
   // Read slides
   if (!fs.existsSync(slidesPath)) {
     throw new Error(`slides.json not found at: ${slidesPath}`);
   }
-  const slides = JSON.parse(fs.readFileSync(slidesPath, 'utf8'));
+  let slides = JSON.parse(fs.readFileSync(slidesPath, 'utf8'));
+
+  // 자동 이미지 소싱
+  if (autoImage) {
+    const imgSourcing = getImageSourcing();
+    if (imgSourcing) {
+      console.log('이미지 자동 소싱 중...');
+      try {
+        slides = await imgSourcing.assignImagesToSlides(slides, {
+          keyword: imageKeyword,
+          orientation: config.image_sourcing?.orientation || 'portrait'
+        });
+        // 업데이트된 슬라이드 저장
+        fs.writeFileSync(slidesPath, JSON.stringify(slides, null, 2));
+        console.log('이미지 소싱 완료');
+      } catch (e) {
+        console.warn('이미지 소싱 실패:', e.message);
+      }
+    }
+  }
 
   // Ensure output directory exists
   fs.mkdirSync(outputDir, { recursive: true });
@@ -187,6 +225,12 @@ function parseArgs(argv) {
         break;
       case '--account':
         opts.account = args[++i];
+        break;
+      case '--no-image':
+        opts.autoImage = false;
+        break;
+      case '--image-keyword':
+        opts.imageKeyword = args[++i];
         break;
       default:
         console.warn(`Unknown argument: ${args[i]}`);

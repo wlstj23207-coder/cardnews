@@ -164,9 +164,71 @@ Claude Code가 오케스트레이터 역할을 하며, 리서치 → **리서치
 4. 오케스트레이터가 두 에이전트의 피드백을 종합:
    - 후킹 점수 7점 미만 → Step 3으로 돌아가 구체적 피드백과 함께 재작성
    - 카피 에디터 지적사항 → 해당 슬라이드만 수정
-   - 양쪽 모두 통과 → Step 4로 진행
+   - 양쪽 모두 통과 → **이미지 소싱** 단계로 진행
 
 **통과 기준**: 후킹 점수 7점 이상 + 카피 에디터의 주요 지적사항 0건
+
+#### 이미지 소싱 (Step 3.5 내 자동 실행)
+
+카피 토론 통과 후, 이미지가 필요한 슬라이드에 자동으로 이미지를 할당합니다.
+
+**스크립트**: `scripts/image-sourcing.js`
+
+**API 소스**:
+| 순위 | 소스 | 설명 |
+|---|---|---|
+| 1순위 | Unsplash | 고품질 무료 이미지, API 키 필수 |
+| 2순위 | Pexels | 폴백 소스, API 키 필수 |
+
+**환경 변수**:
+```
+UNSPLASH_ACCESS_KEY=your_unsplash_access_key
+PEXELS_API_KEY=your_pexels_api_key
+```
+
+**이미지 할당 규칙**:
+- 대상 슬라이드 타입: `cover`, `content-image`, `content-fullimage`
+- 이미 `image_url`이 있는 경우: 건너뜀
+- 키워드 추출: `image_keyword` 필드 우선 → `headline` → 주제 키워드
+- 이미지 방향: `portrait` (세로형, Instagram 비율 4:5 우선)
+- 캐싱: 동일 키워드 검색 결과 24시간 캐싱 (중복 요청 방지)
+
+**사용 예시**:
+```javascript
+const imageSourcing = require('./scripts/image-sourcing');
+
+// 키워드로 이미지 검색
+const result = await imageSourcing.searchImages('fashion', { count: 5 });
+console.log(result.images);
+
+// 슬라이드에 이미지 자동 할당
+const slidesWithImages = await imageSourcing.assignImagesToSlides(slides, {
+  keyword: 'fashion',
+  orientation: 'portrait'
+});
+```
+
+**CLI 사용**:
+```bash
+node scripts/image-sourcing.js "fashion" 5 portrait
+```
+
+**slides.json 결과 예시**:
+```json
+{
+  "slide": 3,
+  "type": "content-image",
+  "headline": "핵심 트렌드",
+  "body": "설명 텍스트",
+  "image_url": "https://images.unsplash.com/photo-...",
+  "image_credit": "Photo by John Doe on Unsplash"
+}
+```
+
+**주의사항**:
+- API 키는 환경 변수로만 관리 (코드에 하드코딩 금지)
+- 일일 API 요청 한도 확인 (Unsplash: 시간당 50회, Pexels: 시간당 200회)
+- 이미지 출처(credit)를 항상 포함하여 저작권 준수
 
 ---
 

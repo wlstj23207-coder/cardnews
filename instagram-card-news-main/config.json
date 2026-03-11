@@ -1,10 +1,18 @@
 {
-  "version": "3.0",
+  "version": "3.1",
   "defaults": {
     "template": "clean",
     "accent_color": "#3B82F6",
     "account_name": "my_account",
     "slide_count": 7
+  },
+  "image_sourcing": {
+    "enabled": true,
+    "primary_source": "unsplash",
+    "fallback_source": "pexels",
+    "orientation": "portrait",
+    "cache_duration_hours": 24,
+    "default_count": 10
   },
   "templates": {
     "minimal": {
