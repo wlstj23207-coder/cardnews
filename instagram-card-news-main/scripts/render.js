@@ -8,6 +8,39 @@ const path = require('path');
 const configPath = path.join(__dirname, '..', 'config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
+/**
+ * Convert local image file to base64 data URI
+ * @param {string} imagePath - Local file path or file:// URL
+ * @returns {string} Base64 data URI or original URL
+ */
+function imageToBase64(imagePath) {
+  if (!imagePath) return '';
+  
+  // file:// URL인 경우 경로 추출
+  let filePath = imagePath;
+  if (imagePath.startsWith('file://')) {
+    filePath = imagePath.replace('file://', '');
+  }
+  
+  // 로컬 파일이 존재하는지 확인
+  if (fs.existsSync(filePath)) {
+    const ext = path.extname(filePath).toLowerCase();
+    const mimeTypes = {
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.gif': 'image/gif',
+      '.webp': 'image/webp'
+    };
+    const mimeType = mimeTypes[ext] || 'image/png';
+    const base64 = fs.readFileSync(filePath).toString('base64');
+    return `data:${mimeType};base64,${base64}`;
+  }
+  
+  // 파일이 없으면 원래 URL 반환
+  return imagePath;
+}
+
 // 이미지 소싱 모듈 (지연 로드)
 let imageSourcing = null;
 function getImageSourcing() {
@@ -43,8 +76,8 @@ function applyPlaceholders(html, slide, opts, index, total) {
     '{{total_slides}}': String(total).padStart(2, '0'),
     '{{accent_color}}': opts.accent || config.defaults.accent_color,
     '{{account_name}}': opts.account || config.defaults.account_name,
-    // v2 placeholders
-    '{{image_url}}': slide.image_url || '',
+    // v2 placeholders - 로컬 이미지는 base64로 변환
+    '{{image_url}}': imageToBase64(slide.image_url || ''),
     '{{image_credit}}': slide.image_credit || '',
     '{{image_color}}': slide.image_color || '#3B82F6',
     '{{badge_text}}': slide.badge_text || '',
