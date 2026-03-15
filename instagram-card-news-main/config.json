@@ -4,15 +4,25 @@
     "template": "clean",
     "accent_color": "#3B82F6",
     "account_name": "my_account",
-    "slide_count": 7
+    "slide_count": 7,
+    "bg_photo_mode": "auto"
   },
   "image_sourcing": {
     "enabled": true,
-    "primary_source": "unsplash",
-    "fallback_source": "pexels",
+    "method": "claude_image_search",
     "orientation": "portrait",
-    "cache_duration_hours": 24,
-    "default_count": 10
+    "default_count": 5,
+    "overlay_opacity": {
+      "cover": 0.55,
+      "content_fullimage": 0.50,
+      "all_mode": 0.70
+    },
+    "target_slides": {
+      "auto": ["cover", "content-fullimage"],
+      "cover-only": ["cover"],
+      "all": ["cover", "content", "content-stat", "content-quote", "content-image", "content-fullimage", "content-steps", "content-list", "content-badge", "content-split", "content-highlight", "content-grid", "content-bigdata"],
+      "none": []
+    }
   },
   "templates": {
     "minimal": {
