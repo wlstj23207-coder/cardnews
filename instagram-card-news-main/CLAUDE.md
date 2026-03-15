@@ -1,13 +1,13 @@
 # Instagram 카드뉴스 생성 프로젝트
 
-> **v5.2** — 14종 슬라이드 타입 + 8종 템플릿 스타일 + 팀 토론 파이프라인
+> **v5.3** — 14종 슬라이드 타입 + 8종 템플릿 스타일 + 팀 토론 파이프라인 + **Claude 이미지 검색 배경사진 자동 적용**
 
 ## 프로젝트 개요
 
 이 프로젝트는 주어진 주제에 대해 Instagram 카드뉴스(캐러셀 포스트)를 자동으로 생성합니다.
 Claude Code가 오케스트레이터 역할을 하며, 리서치 → **리서치 검증 (팀 토론)** → 카피라이팅 → **카피 토론 (팀 토론)** → 렌더링 → 검토 파이프라인을 실행합니다.
 
-**입력**: 주제, 톤, 템플릿 스타일, 슬라이드 수, 악센트 색상
+**입력**: 주제, 톤, 템플릿 스타일, 슬라이드 수, 악센트 색상, 배경사진 모드
 **출력**: `output/` 디렉토리에 PNG 이미지 파일들 (1080×1350px, Instagram 세로형)
 
 ### 사용 가능한 템플릿 스타일
@@ -38,6 +38,7 @@ Claude Code가 오케스트레이터 역할을 하며, 리서치 → **리서치
 | `slide_count` | `7` | 슬라이드 수 (최소 5, 최대 12) |
 | `accent_color` | `#2D63E2` | 악센트 색상 (hex) |
 | `account_name` | `my_account` | 계정명 (@ 없이 입력, 템플릿에서 자동 추가) |
+| `bg_photo_mode` | `auto` | 배경사진 적용 방식: `auto`(주제 기반 자동 검색) / `cover-only`(표지만) / `all`(모든 슬라이드) / `none`(사용 안 함) |
 
 명시되지 않은 파라미터는 `config.json`의 기본값을 사용합니다.
 
@@ -168,67 +169,105 @@ Claude Code가 오케스트레이터 역할을 하며, 리서치 → **리서치
 
 **통과 기준**: 후킹 점수 7점 이상 + 카피 에디터의 주요 지적사항 0건
 
-#### 이미지 소싱 (Step 3.5 내 자동 실행)
+#### 이미지 소싱 (Step 3.5 내 자동 실행) — Claude image_search 기반
 
-카피 토론 통과 후, 이미지가 필요한 슬라이드에 자동으로 이미지를 할당합니다.
+카피 토론 통과 후, **Claude의 내장 `image_search` 툴**을 사용하여 주제와 관련된 배경사진을 자동으로 검색하고 슬라이드에 할당합니다. API 키 설정 없이 즉시 사용 가능합니다.
 
-**스크립트**: `scripts/image-sourcing.js`
+---
 
-**API 소스**:
-| 순위 | 소스 | 설명 |
+##### 📸 배경사진 적용 대상 (`bg_photo_mode` 파라미터)
+
+| 모드 | 적용 슬라이드 | 설명 |
 |---|---|---|
-| 1순위 | Unsplash | 고품질 무료 이미지, API 키 필수 |
-| 2순위 | Pexels | 폴백 소스, API 키 필수 |
+| `auto` (기본값) | `cover` + `content-fullimage` | 표지와 풀이미지 슬라이드에만 적용 |
+| `cover-only` | `cover` 슬라이드만 | 레퍼런스 이미지1처럼 표지에만 강렬한 배경 |
+| `all` | 모든 슬라이드 | 전체 슬라이드에 사진 오버레이 적용 |
+| `none` | 없음 | 배경사진 비활성화 |
 
-**환경 변수**:
-```
-UNSPLASH_ACCESS_KEY=your_unsplash_access_key
-PEXELS_API_KEY=your_pexels_api_key
-```
+---
 
-**이미지 할당 규칙**:
-- 대상 슬라이드 타입: `cover`, `content-image`, `content-fullimage`
-- 이미 `image_url`이 있는 경우: 건너뜀
-- 키워드 추출: `image_keyword` 필드 우선 → `headline` → 주제 키워드
-- 이미지 방향: `portrait` (세로형, Instagram 비율 4:5 우선)
-- 캐싱: 동일 키워드 검색 결과 24시간 캐싱 (중복 요청 방지)
+##### 🔍 이미지 검색 실행 규칙
 
-**사용 예시**:
-```javascript
-const imageSourcing = require('./scripts/image-sourcing');
+Claude는 `image_search` 툴을 사용하여 다음 순서로 키워드를 생성합니다:
 
-// 키워드로 이미지 검색
-const result = await imageSourcing.searchImages('fashion', { count: 5 });
-console.log(result.images);
+1. **키워드 추출 우선순위**: `image_keyword` 필드 → `headline` 핵심 명사 → 전체 `topic`
+2. **검색 언어**: 한국 주제면 영어로 번역하여 검색 (검색 품질 향상)
+   - 예: "30대 여성 연애" → `"Korean woman dating 30s"` 또는 `"couple relationship"` 검색
+   - 예: "해외여행" → `"travel abroad city"` 검색
+3. **이미지 선택 기준**:
+   - 세로 비율(portrait) 이미지 우선
+   - 텍스트 오버레이가 가능하도록 **어둡거나 단색 영역**이 있는 이미지 선택
+   - 인물 사진의 경우 얼굴이 명확히 보이는 이미지 우선
+4. **슬라이드별 키워드 다양화**: 같은 이미지 중복 사용 금지, 슬라이드마다 다른 키워드 사용
 
-// 슬라이드에 이미지 자동 할당
-const slidesWithImages = await imageSourcing.assignImagesToSlides(slides, {
-  keyword: 'fashion',
-  orientation: 'portrait'
-});
-```
+---
 
-**CLI 사용**:
-```bash
-node scripts/image-sourcing.js "fashion" 5 portrait
-```
+##### 🖼 슬라이드 타입별 배경사진 적용 방법
 
-**slides.json 결과 예시**:
+**`cover` 슬라이드 (표지)**:
+- 전체 배경에 사진을 깔고 그 위에 어두운 오버레이(opacity 0.45~0.60) 적용
+- 텍스트 가독성 확보를 위해 `background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7))` 사용
+- 이미지 URL은 `image_url` 필드에 저장, HTML 템플릿에서 `background-image: url(...)` 으로 렌더링
+
+**`content-fullimage` 슬라이드**:
+- 기존 방식과 동일: 풀 배경 + 다크 오버레이 + 텍스트
+- 레퍼런스 이미지2(도시 사진 + 하단 텍스트)처럼 하단에 텍스트 집중
+
+**`all` 모드일 때 일반 content 슬라이드**:
+- 배경에 사진을 적용하되 오버레이를 더 강하게(opacity 0.65~0.75) 적용
+- 슬라이드 타입이 `content-photo`로 자동 변환되어 렌더링
+
+---
+
+##### slides.json 결과 예시
+
 ```json
-{
-  "slide": 3,
-  "type": "content-image",
-  "headline": "핵심 트렌드",
-  "body": "설명 텍스트",
-  "image_url": "https://images.unsplash.com/photo-...",
-  "image_credit": "Photo by John Doe on Unsplash"
-}
+[
+  {
+    "slide": 1,
+    "type": "cover",
+    "headline": "30대 여성의 현실적 연애",
+    "subtext": "실시간 커뮤니티 갑론을박",
+    "image_url": "https://images.unsplash.com/photo-abc123...",
+    "image_alt": "Korean woman portrait",
+    "bg_overlay": 0.55
+  },
+  {
+    "slide": 4,
+    "type": "content-fullimage",
+    "headline": "한국 여성, 해외여행 횟수 세계 1위",
+    "badge_text": "트렌드",
+    "body": "연간 평균 4.2회, OECD 국가 중 최상위",
+    "badge2_text": "배경",
+    "body2": "높아진 소득 수준과 여행 문화 변화",
+    "image_url": "https://images.unsplash.com/photo-xyz789...",
+    "image_alt": "Osaka Dotonbori travel",
+    "bg_overlay": 0.50
+  }
+]
 ```
 
-**주의사항**:
-- API 키는 환경 변수로만 관리 (코드에 하드코딩 금지)
-- 일일 API 요청 한도 확인 (Unsplash: 시간당 50회, Pexels: 시간당 200회)
-- 이미지 출처(credit)를 항상 포함하여 저작권 준수
+---
+
+##### 이미지 소싱 실패 시 폴백 처리
+
+| 상황 | 처리 방법 |
+|---|---|
+| 검색 결과 없음 | 해당 슬라이드는 배경사진 없이 기본 템플릿 색상으로 렌더링 |
+| 이미지 비율 부적합 | 다음 검색 결과 이미지로 교체 |
+| 검색 툴 오류 | `image_url: null` 로 설정, 렌더러가 기본 배경 사용 |
+
+**주의**: `image_search` 툴이 반환하는 URL은 외부 URL이므로 렌더링 환경에서 네트워크 접근이 가능해야 합니다. Puppeteer 렌더러의 `--allow-external-images` 옵션을 활성화하세요.
+
+```bash
+node scripts/render.js \
+  --slides workspace/slides.json \
+  --style {template} \
+  --output output/ \
+  --accent "{accent_color}" \
+  --account "{account_name}" \
+  --allow-external-images
+```
 
 ---
 
@@ -244,7 +283,8 @@ node scripts/render.js \
   --style {template} \
   --output output/ \
   --accent "{accent_color}" \
-  --account "{account_name}"
+  --account "{account_name}" \
+  --allow-external-images
 ```
 
 렌더링 완료 후 `output/` 디렉토리에 `slide-01.png` ~ `slide-0N.png` 파일이 생성됩니다.
@@ -366,12 +406,13 @@ node scripts/render.js \
 
 ```json
 {
-  "version": "3.0",
+  "version": "3.1",
   "defaults": {
     "template": "minimal",
     "accent_color": "#2D63E2",
     "account_name": "my_account",
-    "slide_count": 7
+    "slide_count": 7,
+    "bg_photo_mode": "auto"
   }
 }
 ```
@@ -380,6 +421,7 @@ node scripts/render.js \
 - `accent_color`: 기본 악센트 색상 (hex 코드)
 - `account_name`: Instagram 계정명 (슬라이드에 표시)
 - `slide_count`: 기본 슬라이드 수
+- `bg_photo_mode`: 배경사진 적용 방식 (`auto` / `cover-only` / `all` / `none`)
 
 ---
 
@@ -399,6 +441,12 @@ node scripts/render.js \
 ```
 ```
 "건강한 식습관 7가지" 카드뉴스, 캐주얼 톤, 볼드 스타일
+```
+```
+"30대 여성 여행 트렌드" 카드뉴스, 매거진 스타일, 배경사진 모든 슬라이드
+```
+```
+"해외여행 핵심 팁" 카드뉴스, 표지만 배경사진, 엘레건트
 ```
 
 ---
