@@ -1,0 +1,67 @@
+[
+  {
+    "slide": 1,
+    "type": "cover",
+    "headline": "미국래퍼<br><span class='bar-highlight'>맥말러의 인생 서사</span>",
+    "subtext": "짧았지만 빛났던 26년의 여정"
+  },
+  {
+    "slide": 2,
+    "type": "content",
+    "headline": "<span class='accent'>피츠버그의 재능</span>",
+    "body": "1992년 1월 19일, 피츠버그에서 태어나\nMalcolm James McCormick이라는 이름으로 성장\n어릴 때부터 피아노와 기타를 배우며 음악적 기반 쌓기"
+  },
+  {
+    "slide": 3,
+    "type": "content",
+    "headline": "언더에서의 <span class='accent'>시작</span>",
+    "body": "2007년 15살에 Easy Mac으로 언더그라운드 힙ힵ 시작\nK.I.D.S.와 Best Day Ever로 인지도 쌓기\n독립 아티스트로서 투쟁과 성장"
+  },
+  {
+    "slide": 4,
+    "type": "content-highlight",
+    "headline": "<span class='accent'>역사적인 순간</span>",
+    "emphasis": "Billboard 200 1위",
+    "body": "2011년 Blue Slide Park\n독립 아티스트로는 최초로\nBillboard 200 차트 1위 달성\n힙ힵ 역사에 남는 이정표"
+  },
+  {
+    "slide": 5,
+    "type": "content",
+    "headline": "예술적 <span class='accent'>진화</span>",
+    "body": "Watching Movies with the Sound Off (2013)\nGO:OD AM (2015)\nThe Divine Feminine (2016)\nSwimming (2018)\n매 앨범마다 새로운 사운드와 깊이 탐구"
+  },
+  {
+    "slide": 6,
+    "type": "content",
+    "headline": "진솔한 <span class='accent'>자아</span>",
+    "body": "자신의 약점과 투쟁을 감추지 않았다\n중독, 우울, 회복에 대한 이야기를 음악에 담아\n진정성 있는 아티스트로 많은 이들에게 위로"
+  },
+  {
+    "slide": 7,
+    "type": "content",
+    "headline": "다방면 <span class='accent'>프로듀서</span>",
+    "body": "자신의 앨범뿐 아니라\n다른 아티스트들의 곡도 프로듀싱\n재즈, R&B, 소울의 영향을 받은 독창적 스타일"
+  },
+  {
+    "slide": 8,
+    "type": "content-stat",
+    "headline": "갑작스러운 <span class='accent'>이별</span>",
+    "emphasis": "2018.09.07",
+    "body": "26세, 캘리포니아 산 페르난도 밸리에서 사망\n약물 과다 복용으로 추정\n전 세계 팬들과 동료 아티스트들의 애도"
+  },
+  {
+    "slide": 9,
+    "type": "content",
+    "headline": "사후에도 <span class='accent'>이어지는 유산</span>",
+    "body": "2020년 사후 앨범 Circles 발매\n완성되지 않은 곡을 Jon Brion이 마무리\n그의 음악과 영향력은 여전히 살아있다"
+  },
+  {
+    "slide": 10,
+    "type": "cta",
+    "headline": "Blue Slide Park에서\nCircles까지 이어진 길",
+    "cta_text": "Mac Miller의 음악으로 다시 듣기",
+    "tag1": "#MacMiller",
+    "tag2": "#BlueSlidePark",
+    "tag3": "#미국래퍼맥말러"
+  }
+]

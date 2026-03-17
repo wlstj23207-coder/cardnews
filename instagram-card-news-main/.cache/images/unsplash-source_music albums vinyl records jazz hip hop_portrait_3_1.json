@@ -1,0 +1,24 @@
+{
+  "keyword": "music albums vinyl records jazz hip hop",
+  "source": "unsplash-source",
+  "orientation": "portrait",
+  "images": [
+    {
+      "url": "https://source.unsplash.com/random/?music albums vinyl records jazz hip hop&sig=925&w=1080&h=1350&fit=crop",
+      "credit": "Unsplash",
+      "color": "#888888"
+    },
+    {
+      "url": "https://source.unsplash.com/random/?music albums vinyl records jazz hip hop&sig=66&w=1080&h=1350&fit=crop",
+      "credit": "Unsplash",
+      "color": "#888888"
+    },
+    {
+      "url": "https://source.unsplash.com/random/?music albums vinyl records jazz hip hop&sig=193&w=1080&h=1350&fit=crop",
+      "credit": "Unsplash",
+      "color": "#888888"
+    }
+  ],
+  "total": 3,
+  "timestamp": 1773725642293
+}
