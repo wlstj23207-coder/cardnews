@@ -41,17 +41,17 @@ function imageToBase64(imagePath) {
   return imagePath;
 }
 
-// 이미지 크롤러 모듈 (지연 로드)
-let imageCrawler = null;
-function getImageCrawler() {
-  if (!imageCrawler) {
+// 이미지 크롤러 + AI 엔진 모듈 (지연 로드)
+let imageCrawlerAI = null;
+function getImageCrawlerAI() {
+  if (!imageCrawlerAI) {
     try {
-      imageCrawler = require('./image-crawler');
+      imageCrawlerAI = require('./image-crawler-ai');
     } catch (e) {
-      console.warn('이미지 크롤러 모듈을 로드할 수 없습니다:', e.message);
+      console.warn('이미지 크롤러 + AI 엔진 모듈을 로드할 수 없습니다:', e.message);
     }
   }
-  return imageCrawler;
+  return imageCrawlerAI;
 }
 
 /**
@@ -157,22 +157,22 @@ async function render(opts = {}) {
   }
   let slides = JSON.parse(fs.readFileSync(slidesPath, 'utf8'));
 
-  // 자동 이미지 크롤링
+  // 자동 이미지 크롤링 + AI 엔진
   if (autoImage) {
-    const imgCrawler = getImageCrawler();
-    if (imgCrawler) {
-      console.log('이미지 크롤링 중...');
+    const imgCrawlerAI = getImageCrawlerAI();
+    if (imgCrawlerAI) {
+      console.log('이미지 크롤링 + AI 엔진 중...');
       try {
-        slides = await imgCrawler.assignImagesToSlides(slides, {
+        slides = await imgCrawlerAI.assignImagesToSlides(slides, {
           keyword: imageKeyword,
           orientation: config.image_sourcing?.orientation || 'portrait',
-          source: 'unsplash-source' // unsplash-source, unsplash-web 중 선택
+          engine: 'dalle' // dalle, claude 중 선택
         });
         // 업데이트된 슬라이드 저장
         fs.writeFileSync(slidesPath, JSON.stringify(slides, null, 2));
-        console.log('이미지 크롤링 완료');
+        console.log('이미지 크롤링 + AI 엔진 완료');
       } catch (e) {
-        console.warn('이미지 크롤링 실패:', e.message);
+        console.warn('이미지 크롤링 + AI 엔진 실패:', e.message);
       }
     }
   }

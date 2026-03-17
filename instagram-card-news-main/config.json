@@ -9,7 +9,7 @@
   },
   "image_crawling": {
     "enabled": true,
-    "source": "unsplash-source",
+    "engine": "dalle",
     "orientation": "portrait",
     "default_count": 10,
     "cache_duration_ms": 86400000
