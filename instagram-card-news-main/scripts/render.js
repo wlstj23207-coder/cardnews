@@ -41,17 +41,17 @@ function imageToBase64(imagePath) {
   return imagePath;
 }
 
-// 이미지 크롤러 + AI 엔진 모듈 (지연 로드)
-let imageCrawlerAI = null;
-function getImageCrawlerAI() {
-  if (!imageCrawlerAI) {
+// Hugging Face 무료 이미지 생성 모듈 (지연 로드)
+let imageCrawlerHF = null;
+function getImageCrawlerHF() {
+  if (!imageCrawlerHF) {
     try {
-      imageCrawlerAI = require('./image-crawler-ai');
+      imageCrawlerHF = require('./image-crawler-hf');
     } catch (e) {
-      console.warn('이미지 크롤러 + AI 엔진 모듈을 로드할 수 없습니다:', e.message);
+      console.warn('Hugging Face 이미지 생성 모듈을 로드할 수 없습니다:', e.message);
     }
   }
-  return imageCrawlerAI;
+  return imageCrawlerHF;
 }
 
 /**
@@ -157,22 +157,22 @@ async function render(opts = {}) {
   }
   let slides = JSON.parse(fs.readFileSync(slidesPath, 'utf8'));
 
-  // 자동 이미지 크롤링 + AI 엔진
+  // 자동 이미지 생성 (Hugging Face 무료)
   if (autoImage) {
-    const imgCrawlerAI = getImageCrawlerAI();
-    if (imgCrawlerAI) {
-      console.log('이미지 크롤링 + AI 엔진 중...');
+    const imgCrawlerHF = getImageCrawlerHF();
+    if (imgCrawlerHF) {
+      console.log('Hugging Face Stable Diffusion XL로 이미지 생성 중...');
       try {
-        slides = await imgCrawlerAI.assignImagesToSlides(slides, {
+        slides = await imgCrawlerHF.assignImagesToSlides(slides, {
           keyword: imageKeyword,
           orientation: config.image_sourcing?.orientation || 'portrait',
-          engine: 'dalle' // dalle, claude 중 선택
+          engine: 'hf-diffusion-xl' // Hugging Face Stable Diffusion XL
         });
         // 업데이트된 슬라이드 저장
         fs.writeFileSync(slidesPath, JSON.stringify(slides, null, 2));
-        console.log('이미지 크롤링 + AI 엔진 완료');
+        console.log('이미지 생성 완료');
       } catch (e) {
-        console.warn('이미지 크롤링 + AI 엔진 실패:', e.message);
+        console.warn('이미지 생성 실패:', e.message);
       }
     }
   }
