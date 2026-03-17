@@ -1,5 +1,5 @@
 {
-  "version": "8.0",
+  "version": "9.0",
   "defaults": {
     "template": "minimal",
     "accent_color": "#2D63E2",
@@ -9,7 +9,7 @@
   },
   "image_crawling": {
     "enabled": true,
-    "engine": "hf-diffusion-xl",
+    "engine": "zai",
     "orientation": "portrait",
     "default_count": 10,
     "cache_duration_ms": 86400000
